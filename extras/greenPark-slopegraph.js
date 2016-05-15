@@ -139,7 +139,7 @@ var moveRatio = function (){
 				return yRatioValue(1);
 			})
 			.attr('y2', function(d,i){
-				return yRatioValue(d.ratio);
+				return yRatioLabel(d.ratio_coord);
 			})
 			;
 
@@ -173,8 +173,7 @@ var moveDiff = function (){
                 var min = Math.floor(dt/60)
                 var sec = dt%60
                 var pm = d.right>d.left?'+':'-';
-                return pm+(min<10?"0"+min:min)+":"+(sec<10?"0"+sec:sec)
-                })
+                return pm+(min<10?"0"+min:min)+":"+(sec<10?"0"+sec:sec)})
 			;
 
 	allLines.selectAll('line')
@@ -183,7 +182,7 @@ var moveDiff = function (){
 				return yDiffValue(0);
 			})
 			.attr('y2', function(d,i){
-				return yDiffValue(d.diff);
+				return yDiffLabel(d.diff_coord);
 			})
 			;
 
@@ -201,7 +200,10 @@ var moveNormal = function (){
 	leftGroupLabels.selectAll("text")
 		.text(function(d,i){ return d.label});
 	leftGroupValues.selectAll("text")
-		.text(function(d,i){ return Math.floor(d.left/60) +":"+d.left%60})
+        .text(function(d,i){ 
+            var sec = d.left%60;
+            return Math.floor(d.left/60) +":"+(sec<10?"0"+sec:sec)
+            })
 		
 	rightGroup.selectAll('text')
 		.transition()
@@ -215,8 +217,10 @@ var moveNormal = function (){
 			.attr('y', function(d,i){
 				return y(d.right_coord);
 			})
-			.text(function(d,i){ return Math.floor(d.right/60) +":"+d.right%60})
-            ;    			
+			.text(function(d,i){ 
+                var sec = d.right%60;
+                return Math.floor(d.right/60) +":"+(sec<10?"0"+sec:sec)
+                })
 			
 	allLines.selectAll('line')
 			.transition()
@@ -252,7 +256,6 @@ var createPlot = function (_data) {
 			_d[k1]['left'] = y1d[k1];
 			_d[k1]['right'] = y2d[k1];
             _d[k1]['diff'] = y2d[k1] - y1d[k1];
-//            _d[k1]['ratio'] = 100.0*((y2d[k1] - y1d[k1])/y1d[k1]).toFixed(2);
             _d[k1]['ratio'] = Math.round(10000*(r-l)/l)/100;
                 
 			_d[k1]['label'] = k1;
@@ -421,7 +424,7 @@ var createPlot = function (_data) {
 
 		var offset;
 
-		var font_size = 13;
+		var font_size = 15;
 		var l = d.length;
 
 		var max = _max_key(d);
@@ -623,7 +626,6 @@ var createPlot = function (_data) {
 				return y(d.left_coord)
 			})
 			.attr('dy', '.45em')
-//			.attr('font-size', 10)
 			.attr('font-weight', 'bold')
 			.attr('text-anchor', 'end')
 			.text(function(d,i){ return d.label})
@@ -640,9 +642,7 @@ var createPlot = function (_data) {
 				return y(d.left_coord)
 			})
 			.attr('dy', '.45em')
-//			.attr('font-size', 10)
 			.attr('text-anchor', 'end')
-            
 			.text(function(d,i){ 
                 var sec = d.left%60;
                 return Math.floor(d.left/60) +":"+(sec<10?"0"+sec:sec)})
@@ -655,9 +655,8 @@ var createPlot = function (_data) {
 				return y(d.right_coord)
 			})
 			.attr('dy', '.35em')
-			.attr('dx', 50)
+			.attr('dx', 60)
 			.attr('font-weight', 'bold')
-			.attr('font-size', 10)
 			.text(function(d,i){ return d.label})
 			.attr('fill', function(d){if(d.left==0) return 'blue'; else return 'black';})
 
@@ -669,8 +668,7 @@ var createPlot = function (_data) {
 				return y(d.right_coord)
 			})
 			.attr('dy', '.35em')
-			.attr('dx', 10)
-			.attr('font-size', 10)
+			.attr('dx', 5)
 			.text(function(d,i){ 
                 var sec = d.right%60;
                 return Math.floor(d.right/60) +":"+(sec<10?"0"+sec:sec);
