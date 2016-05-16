@@ -60,7 +60,7 @@
 
     <!------------------------------------------------>
     
-    <a name="timedist"></a>
+    <a href="timedist"></a>
     <h1>Time Distrubition</h1>
     
     <select id='yearCmb'>
