@@ -13,8 +13,8 @@
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title></title>
-  <meta name="author" content="">
+  <title>Green Park 10k run</title>
+  <meta name="laszukdawid" content="">
 
   <!--  Mobile viewport optimized: j.mp/bplateviewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,14 +26,22 @@
   <script src="/extras/jquery-2.0.0.js"></script>
   <script src="/extras/gp10k-main.js"></script>
 
-
 </head>
 
 <body>
     <!-- Additional scripts -->
     <script src="/extras/nouislider.min.js"></script>
     
-    <p>Here are few plots:</p>
+    <h1>Green Park 10k - some results</h1>
+    
+    <p>
+        Another race behind us and with this special moment... who am I kidding? Plots below.
+        <br>
+        <p style="font-size:10px">I'm planning on updating some plots in future, but this might be just wishful thinking.</p>
+    </p>
+    
+    
+    <p>Quick links :</p>
      <ul>
       <li><a href="#timecomp">Time comparisons</a></li>
       <li><a href="#timedist">Time distrubition</a></li>
@@ -43,30 +51,42 @@
     
     <!------------------------------------------------>
     <a name="timecomp"></a>
-    <h1>Time Comparison</h1>
-    <div id='option'>
-        <input 	name="moveNormal"
-                type="button"
-                value="Absolute"
-                onClick="moveNormal()">
-        <input 	name="moveDiff"
-                type="button"
-                value="Time difference"
-                onClick="moveDiff()">
-        <input 	name="moveRatio"
-                type="button"
-                value="Time ratio"
-                onClick="moveRatio()">
-    </div>
+    <h2>Time Comparison</h2>
 
-    <div id='slopegraph'></div>
-    <script src='/extras/gp10k-slopegraph.js'></script>
+    <p>
+        Here we compare times obtained by 2015 (left) and 2016 (right) teams. One-time runners are colour-coded: quitters are red and newbies are blue. Consistent runners can compare their times and judge others either by choosing "Time difference" or "Time ratio." The first option shows aboslute time difference, where as the latter shows percentage time decrease. (In author's opinion, <i>ratio</i> is more informative, as, in author's opinion, it is easier to remove 1 min off 60 min than off 40 min. But that's just author's opinion.)
+    </p>
+    
+    <center>
+        <div id='option'>
+            <input 	name="moveNormal"
+                    type="button"
+                    value="Absolute"
+                    onClick="moveNormal()">
+            <input 	name="moveDiff"
+                    type="button"
+                    value="Time difference"
+                    onClick="moveDiff()">
+            <input 	name="moveRatio"
+                    type="button"
+                    value="Time ratio"
+                    onClick="moveRatio()">
+        </div>
 
+        <div id='slopegraph'></div>
+        <script src='/extras/gp10k-slopegraph.js'></script>
+    </center>
     <!------------------------------------------------>
     
     <a name="timedist"></a>
-    <h1>Time Distrubition</h1>
+    <h2>Time Distrubition</h2>
     
+    <p>
+        Below are time histograms for respective year. One can either view collective stacked result, or chose the <strike>sexists</strike> teams option and compare <a style="color:blue">#teamDave</a> vs. <a style="color:pink">#teamWhitney</a>. In short, these graphs represent the probability for new member of SportsPark to perform at given time. The higher the bar, the higher the probability (although look for contrast). And so, on average newly convinced person will run 10k in 53 min. 
+        <br>
+        Interestingly, one can see that <a style="color:pink">girls</a> had last year more-or-less evenly spread results, which this year became more narrow around the average value. <a style="color:blue">Boys</a>, on the contrary, have opposite trend, but much less visible impact.
+    </p>
+
     <select id='yearCmb'>
       <option value="2016">2016</option>
       <option value="2015">2015</option>
@@ -74,14 +94,20 @@
       <label><input type="radio" name="mode" value="grouped"> Grouped</label>
       <label><input type="radio" name="mode" value="stacked" checked> Stacked</label>
 
-    <div id='annualKDE'></div>
-    <script src='/extras/gp10k-dist.js'></script> 
+    <center>
+        <div id='annualKDE'></div>
+        <script src='/extras/gp10k-dist.js'></script> 
+    </center>
 
     <!------------------------------------------------>
 
     <a name="power"></a>
-    <h1>Power consumption</h1>
+    <h2>Power consumption</h2>
     
+    As everybody knows, running requires energy. Change in energy over time is power. Simple.
+    <br>
+    Pick'n'mix options and stuff will happen. More explanation below. Limited results due to limited data from people.
+
     <div id='connectEnv'>
         <table>
         <tr>
@@ -105,6 +131,8 @@
             <td>
                 <div id='connectSlide'  style="width:400px;"></div>
             </td>
+
+
         </tr>
         </table>
     </div>
@@ -129,9 +157,42 @@
         });
     </script>
     
-    <div id='powerGraph'></div>
+    <br><br><br>
+    Unit converter:
+    <select id='units'>
+      <option value="metric">Metric</option>
+      <option value="uk">UK</option>
+    </select>
     
+    Bulb power:
+    <select id='lightbulbPow'> A
+        <option value="40">40 W</option>
+        <option value="60">60 W</option>
+        <option value="80">80 W</option>
+        <option value="100">100 W</option>
+    </select>
+    
+    <p>
+        Within selected age region there are <innerText id='people'></innerText>. In total they reached average <innerText id='totPow' style='color:red'></innerText>, which is <innerText id='avgPow' style='color:red'></innerText> per person.
+        That's roughly equivalent to having <innerText id='bulbN'></innerText> lightbulbs of <innerText id='bulbPow'></innerText> W on.
+    </p>
+        
+    <div id='powerGraph'></div>
     <script src='/extras/gp10k-power.js'></script> 
     <br>
+    
+    <p>
+        Notice: Presented here "power" relates to purely mechanical phenomenon. Assumption was made, that human walk/run in falling manner, i.e. each step you take, each breath you take, you fall a little bit. Most of us take that fall as a challenge and compensate it counter-fall on other leg. Such alternating leg-leg motion changes vertical position of body's mass centre. In calculations it is assumed: 5 cm fall every 50 cm distance; fall is free, but countering requires energy. In reality, majority of our energy goes to bio-physiology, which is far far outside scope of this graph as it's way way too complicated. All those apps that you use, they just make numbers up to make you happy, so you want to use it again. But, as long as you're happy &#128077; :)
+    </p>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <p>
+        The exact formula used in calculations is 
+        $$ P = \frac{m g \eta L}{t}, $$
+        where <i>m</i> and <i>g</i> are our favourite mass and gravitational acceleration, <i>L</i> and <i>t</i> are distance and time, and &#951; is a magic-factor. Since we are only concentrating here on physical losses, &#951; relates to how inefficient our movements are. For example, if someone runs by skipping 60 cm high every 1 m, their magic-factor &#951; ≈ 0.6. However, based on a number (2) of experiments, researchers have conducted that &#951; = 0.1 is fine enough. And so, given arbitrary the averagest person (90 kg, 10 km in 49:04 min) one can produce some number
+        $$ P = \frac{90 kg \cdot 9.81 \frac{m}{s^2} \cdot 0.1 \cdot 10 km}{48\text{min} 4\text{s}} \approx 300 W,$$
+        which is very significant and very scientific.
+    </p>
     
 </body>

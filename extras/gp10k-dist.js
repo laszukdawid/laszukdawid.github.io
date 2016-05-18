@@ -8,7 +8,7 @@ d3.select('#yearCmb')
   );
 
 var margin = {top: 40, right: 10, bottom: 20, left: 10},
-    width = 960 - margin.left - margin.right,
+    width = 700 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var transitionGrouped;

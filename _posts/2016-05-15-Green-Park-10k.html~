@@ -19,23 +19,27 @@
   <!--  Mobile viewport optimized: j.mp/bplateviewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link type="text/css" rel="stylesheet" href="/extras/gp10k-style.css" /> 
+  <link type="text/css" rel="stylesheet" href="/extras/style.css" /> 
+  <link href="/extras/nouislider.min.css" rel="stylesheet">
 
-  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-  
-  <script src="/extras/greenPark-main.js" charset="utf-8"></script>
+  <script src="/extras/d3.v3.js"></script>
+  <script src="/extras/jquery-2.0.0.js"></script>
+  <script src="/extras/gp10k-main.js"></script>
+
 
 </head>
 
 <body>
+    <!-- Additional scripts -->
+    <script src="/extras/nouislider.min.js"></script>
     
     <p>Here are few plots:</p>
      <ul>
       <li><a href="#timecomp">Time comparisons</a></li>
       <li><a href="#timedist">Time distrubition</a></li>
-      <li>Milk</li>
+      <li><a href="#power">Power consumption</a></li>
     </ul> 
+    
     
     <!------------------------------------------------>
     <a name="timecomp"></a>
@@ -56,11 +60,11 @@
     </div>
 
     <div id='slopegraph'></div>
-    <script src='/extras/greenPark-slopegraph.js'></script>
+    <script src='/extras/gp10k-slopegraph.js'></script>
 
     <!------------------------------------------------>
     
-    <a href="timedist"></a>
+    <a name="timedist"></a>
     <h1>Time Distrubition</h1>
     
     <select id='yearCmb'>
@@ -71,8 +75,63 @@
       <label><input type="radio" name="mode" value="stacked" checked> Stacked</label>
 
     <div id='annualKDE'></div>
-    <script src='/extras/greenPark-dist.js'></script> 
+    <script src='/extras/gp10k-dist.js'></script> 
 
+    <!------------------------------------------------>
 
+    <a name="power"></a>
+    <h1>Power consumption</h1>
+    
+    <div id='connectEnv'>
+        <table>
+        <tr>
+            <td>Male:</td>
+            <td>
+                <div class="toggle-button toggle-button-selected">
+                    <button id='Male'></button>
+                </div>
+            </td>
+            <td>
+                <center>Age</center>
+            </td>
+        </tr>
+        <tr>
+            <td>Female: </td>
+            <td>
+                <div class="toggle-button toggle-button-selected">
+                    <button id='Female'></button>
+                </div>            
+            </td>
+            <td>
+                <div id='connectSlide'  style="width:400px;"></div>
+            </td>
+        </tr>
+        </table>
+    </div>
+    
+    <script>
+        var connectSlider = document.getElementById('connectSlide');
+
+        noUiSlider.create(connectSlider, {
+            start: [21, 35],
+            connect: true,
+            range: {
+                'min': 18,
+                '16' : 25,
+                '40' : 35,
+                'max': 60
+            },
+            pips: { // Show a scale with the slider
+                mode: 'range',
+                density: 5
+            },
+            step: 1
+        });
+    </script>
+    $$ f(x) = x^2 \sin(2x), $$
+    <div id='powerGraph'></div>
+    
+    <script src='/extras/gp10k-power.js'></script> 
+    <br>
+    
 </body>
-
