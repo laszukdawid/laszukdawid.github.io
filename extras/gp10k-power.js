@@ -47,6 +47,12 @@ $.when(deferred2015, deferred2016).done(function(){
     var circSVG = d3.select('#powerGraph').append('svg')
         .attr('width', 800).attr('height', 800).attr('class','radSol');
     
+    circSVG.append("defs")
+            .append("circle")
+                .attr("id", "bulb")
+                .style("fill", "yellow")
+                .attr("r", 10).attr("cx", 20).attr("cy", 20);
+    
     updatedValues = function(){
         var _data = totalData['2016'];
         
@@ -67,13 +73,19 @@ $.when(deferred2015, deferred2016).done(function(){
         
         console.log("Pow: " +avgPow+", which are " +nImg+" lightbulbs.");
         
-        circSVG.selectAll('circles').data(nArr)
+//        circSVG.selectAll('circles').remove();
+
+        circSVG.selectAll('use').data(nArr)
+            .exit()
+                .remove();
+        
+        circSVG.selectAll('#circles').data(nArr)
             .enter()
-                .append('circle')
-                .attr('r', 10)
-                .attr('cx', function(d,i){ return 50+50*(i%10);})
-                .attr('cy', function(d,i){ return 50+50*Math.floor(i/10);})
-                .style('fill', 'blue')
+                .append('use')
+                .attr('xlink:href', "#bulb")
+                .attr('x', function(d,i){ return 50+50*(i%10);})
+                .attr('y', function(d,i){ return 50+50*Math.floor(i/10);});
+
             ;
     }
     
