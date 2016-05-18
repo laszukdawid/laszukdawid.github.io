@@ -18,7 +18,7 @@ d3.select('#units')
         convert = 1;
     }
     else{
-        powUnit = "stones (yard / quadratic tea-time) times Queen's age"
+        powUnit = "stones times (yard / quadratic tea-time) times Queen's age"
         convert = 1.09361*62.3/6.35029;
     }
 
@@ -76,13 +76,7 @@ $.when(deferred2015, deferred2016).done(function(){
     console.log(connectSlider);
     
     var circSVG = d3.select('#powerGraph').append('svg')
-        .attr('width', 600).attr('height', 400).attr('class','radSol');
-    
-    circSVG.append("defs")
-            .append("circle")
-                .attr("id", "bulb")
-                .style("fill", "yellow")
-                .attr("r", 10).attr("cx", 20).attr("cy", 20);
+        .attr('width', 600).attr('height', 500).attr('class','radSol');
     
     peopleTxt = d3.select("#people").append("tet");
     avgPowTxt = d3.select("#avgPow").append("tet");
@@ -117,16 +111,17 @@ $.when(deferred2015, deferred2016).done(function(){
         
         console.log("Pow: " +totPow+", which are " +bulbN+" lightbulbs.");
 
-        circSVG.selectAll('use').data(nArr)
+        circSVG.selectAll('circle').data(nArr)
             .exit()
                 .remove();
         
         circSVG.selectAll('#circles').data(nArr)
             .enter()
-                .append('use')
-                .attr('xlink:href', "#bulb")
-                .attr('x', function(d,i){ return 50+50*(i%10);})
-                .attr('y', function(d,i){ return 50+50*Math.floor(i/10);});
+            .append("circle")
+                .style("fill", "yellow")
+                .attr("r", 2*Math.sqrt(bulbPow)).attr("cx", 20).attr("cy", 20)
+                .attr('cx', function(d,i){ return 50+50*(i%10);})
+                .attr('cy', function(d,i){ return 50+50*Math.floor(i/10);});
         
         // Convert units
         avgPow *= convert; totPow *= convert;
