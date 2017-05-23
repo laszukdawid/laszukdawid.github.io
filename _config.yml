@@ -18,3 +18,5 @@ github_username:  laszukdawid
 
 # Build settings
 markdown: kramdown
+
+keep_files: [extras]

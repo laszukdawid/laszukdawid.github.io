@@ -13,17 +13,19 @@
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Green Park 10k run</title>
+  <title>(2017) Green Park 10k run</title>
   <meta name="laszukdawid" content="">
 
   <!--  Mobile viewport optimized: j.mp/bplateviewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link type="text/css" rel="stylesheet" href="/extras/gp10k-style.css" /> 
   <link type="text/css" rel="stylesheet" href="/extras/style.css" /> 
   <link href="/extras/nouislider.min.css" rel="stylesheet">
 
-  <script src="/extras/d3.v3.js"></script>
+  <script src="/extras/d3.min.js"></script>
   <script src="/extras/jquery-2.0.0.js"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
   <script src="/extras/gp10k-main.js"></script>
 
 </head>
@@ -43,21 +45,60 @@
     
     <p>Quick links :</p>
      <ul>
+      <li><a href="#mappath">Real-time run</a></li>
       <li><a href="#timecomp">Time comparisons</a></li>
-      <li><a href="#timedist">Time distrubition</a></li>
+      <li><a href="#timedist">Time distribution</a></li>
       <li><a href="#power">Power consumption</a></li>
     </ul> 
     
-    
+    <a name="mappath"></a>
+    <h2>Real-time run </h2>
+    <div class='options'>
+        <input class="option"
+               name="startRace"
+               type="button"
+               value="Start race"
+               onClick="startRace()">
+        Year: 
+        <select class="option" id="pathYearCmb" onchange="pathYearChange()">
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017" selected="selected">2017</option>
+        </select>
+        <div class="option" id="scaleForm">
+            <span>Scale: </span>
+            <input type="text" id="scaleTime">
+            <span> s : 60 min</span>
+        </div>
+    </div>
+    <div class="bgmap" id="pathAnimation">
+    <script src="/extras/gp10k-pathFollow.js"></script>
+    </div>
+
     <!------------------------------------------------>
     <a name="timecomp"></a>
     <h2>Time Comparison</h2>
 
     <p>
-        Here we compare times obtained by 2015 (left) and 2016 (right) teams. One-time runners are colour-coded: quitters are red and newbies are blue. Consistent runners can compare their times and judge others either by choosing "Time difference" or "Time ratio." The first option shows aboslute time difference, where as the latter shows percentage time decrease. (In author's opinion, <i>ratio</i> is more informative, as, in author's opinion, it is easier to remove 1 min off 60 min than off 40 min. But that's just author's opinion.)
+    Here we compare times obtained by <innerText id='slopegraphLeftYear'></innerText> (left) and <innerText id='slopegraphRightYear'></innerText> (right) teams. One-time runners are colour-coded: quitters are red and newbies are blue. Consistent runners can compare their times and judge others either by choosing "Time difference" or "Time ratio." The first option shows absolute time difference, where as the latter shows percentage time decrease. (In author's opinion, <i>ratio</i> is more informative, as, in author's opinion, it is easier to remove 1 min off 60 min than off 40 min. But that's just author's opinion.)
     </p>
     
     <center>
+        <div class="options">
+            <select class="option" id="slopeLeftYearCmb" onchange="slopeYearChanged()">
+                <option value="2015">2015</option>
+                <option value="2016" selected="selected">2016</option>
+                <option value="2017">2017</option>
+            </select>
+            <div class="divider"></div>
+            &larr; years &rarr;
+            <div class="divider"></div>
+            <select class="option" id="slopeRightYearCmb" onchange="slopeYearChanged()">
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017" selected="selected">2017</option>
+            </select>
+        </div>
         <div id='option'>
             <input 	name="moveNormal"
                     type="button"
@@ -73,24 +114,25 @@
                     onClick="moveRatio()">
         </div>
 
-        <div id='slopegraph'></div>
-        <script src='/extras/gp10k-slopegraph-2016.js'></script>
+        <div class='slopegraph'></div>
+        <script src='/extras/gp10k-slopegraph.js'></script>
     </center>
     <!------------------------------------------------>
     
     <a name="timedist"></a>
-    <h2>Time Distrubition</h2>
+    <h2>Time Distribution</h2>
     
     <p>
         Below are time histograms for respective year. One can either view collective stacked result, or chose the <strike>sexists</strike> teams option and compare <a style="color:blue">#teamDave</a> vs. <a style="color:pink">#teamWhitney</a>. In short, these graphs represent the probability for new member of SportsPark to perform at given time. The higher the bar, the higher the probability (although look for contrast). And so, on average newly convinced person will run 10k in 53 min. 
-        <br>
+    <br>
         Interestingly, one can see that <a style="color:pink">girls</a> had last year more-or-less evenly spread results, which this year became more narrow around the average value. <a style="color:blue">Boys</a>, on the contrary, have opposite trend, but much less visible impact.
     </p>
 
-    <select id='yearCmb'>
-      <option value="2016">2016</option>
-      <option value="2015">2015</option>
-    </select> 
+    <select class="option" id="distYearCmb">
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017" selected="selected">2017</option>
+    </select>
       <label><input type="radio" name="mode" value="grouped"> Grouped</label>
       <label><input type="radio" name="mode" value="stacked" checked> Stacked</label>
 
@@ -108,6 +150,13 @@
     <br>
     Pick'n'mix options and stuff will happen. More explanation below. Limited results due to limited data from people.
 
+    <div class="options">
+      <select class="option" id="powerYearCmb">
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017" selected="selected">2017</option>
+      </select>
+    </div>
     <div id='connectEnv'>
         <table>
         <tr>

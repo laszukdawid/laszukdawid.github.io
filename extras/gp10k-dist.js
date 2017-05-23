@@ -1,8 +1,9 @@
+var year = "2016";
 var plotDist, layersVal, rectAll;
-var yearCmb = d3.select('#yearCmb');
-d3.select('#yearCmb')
+var yearCmb = d3.select('#distYearCmb');
+d3.select('#distYearCmb')
   .on('change', function() {
-    var year = d3.select(this).property('value');
+    year = d3.select(this).property('value');
     changeYear(year);
     }
   );
@@ -251,7 +252,6 @@ var changeYear = function(year){
 }
 
 // Wait until data are loaded
-$.when(deferred2015, deferred2016).done(function(){
-    
-plotDist('2016');
+$.when(allDeferred).done(function(){
+  plotDist(year);
 });
