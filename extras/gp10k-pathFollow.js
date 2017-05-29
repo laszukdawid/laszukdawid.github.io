@@ -53,7 +53,7 @@ function ready(error, xml) {
     .append("text")
     .text(function(d){return d.Name})
     .attr("fill", "black")
-    .attr("font-size", "20px")
+//    .attr("font-size", "38px")
     .attr("dx", 10) 
     .attr("dy", -5)
     ;
