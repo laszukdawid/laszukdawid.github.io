@@ -5,14 +5,20 @@ var timeConvert = 1000/3600;
 var useData;
 
 $('#timeScale').val(timeScale.toString());
-
-var genRandomColor = function() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++ ) {
-    color += letters[Math.floor(Math.random() * 16)];
+function hashCode(str) { // java String#hashCode
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
-  return color;
+  return hash;
+} 
+
+function intToRGB(i){
+  var c = (i & 0x00FFFFFF)
+    .toString(16)
+    .toUpperCase();
+
+  return "00000".substring(0, 6 - c.length) + c;
 }
 
 var getTime=function(d) {
@@ -40,9 +46,7 @@ function ready(error, xml) {
     .append("circle")
     .text(function(d){return d.Name;})
     .attr("r", 5)
-    .style("fill", function(d,i){
-      return genRandomColor();
-      })
+    .style("fill", function(d,i){return intToRGB(hashCode(d.Name));})
   ;
 
   runnersGroup

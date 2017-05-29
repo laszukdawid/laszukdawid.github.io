@@ -14,6 +14,8 @@ var bulbPow = 40;
 d3.select('#powerYearCmb')
 .on('change', function(){
   console.log(year);
+  year=$('#powerYearCmb').val();
+  updatedValues();
 }
 );
 
@@ -79,7 +81,7 @@ $.when(allDeferred).done(function(){
   });
 
   var circSVG = d3.select('#powerGraph').append('svg')
-    .attr('width', 600).attr('height', 500).attr('class','radSol');
+    .attr('width', 1000).attr('height', 500).attr('class','radSol');
 
   peopleTxt = d3.select("#people");
   avgPowTxt = d3.select("#avgPow");
@@ -133,8 +135,8 @@ $.when(allDeferred).done(function(){
       .append("circle")
       .style("fill", "yellow")
       .attr("r", 2*Math.sqrt(bulbPow)).attr("cx", 20).attr("cy", 20)
-      .attr('cx', function(d,i){ return 50+50*(i%10);})
-      .attr('cy', function(d,i){ return 50+50*Math.floor(i/10);});
+      .attr('cx', function(d,i){ return 50+50*(i%16);})
+      .attr('cy', function(d,i){ return 50+50*Math.floor(i/16);});
 
     // Convert units
     avgPow *= convert; totPow *= convert;
