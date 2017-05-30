@@ -1,7 +1,6 @@
 var leftBound, rightBound;
 var MEN_F=true, WOMEN_F=true;
 var year=$('#powerYearCmb').val();
-console.log(year);
 
 var updatedValues = function(d){return d;};
 
@@ -13,7 +12,6 @@ var bulbPow = 40;
 
 d3.select('#powerYearCmb')
 .on('change', function(){
-  console.log(year);
   year=$('#powerYearCmb').val();
   updatedValues();
 }
@@ -75,7 +73,6 @@ $.when(allDeferred).done(function(){
     }
     leftBound = boundValues[0];
     rightBound = boundValues[1];
-    console.log("LeftValue: " + leftBound + ". RightValue: " + rightBound);
 
     updatedValues();
   });

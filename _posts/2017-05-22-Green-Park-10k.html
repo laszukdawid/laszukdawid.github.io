@@ -23,9 +23,9 @@
   <link type="text/css" rel="stylesheet" href="/extras/style.css" /> 
   <link href="/extras/nouislider.min.css" rel="stylesheet">
 
-  <script src="/extras/d3.min.js"></script>
+  <script src="/extras/d3.v3.min.js"></script>
   <script src="/extras/jquery-2.0.0.js"></script>
-  <script src="http://d3js.org/queue.v1.min.js"></script>
+  <script src="/extras/queue.v1.min.js"></script>
   <script src="/extras/gp10k-main.js"></script>
 
 </head>
@@ -34,18 +34,13 @@
     <!-- Additional scripts -->
     <script src="/extras/nouislider.min.js"></script>
     
+
     <h1>Green Park 10k - some results</h1>
-    
-    <p>
-        Another race behind us and with this special moment... who am I kidding? Plots below.
-        <br>
-        <p style="font-size:10px">I'm planning on updating some plots in future, but this might be just wishful thinking.</p>
-    </p>
-    
     
     <p>Quick links :</p>
      <ul>
       <li><a href="#mappath">Real-time run</a></li>
+      <li><a href="#boxplot">Boxplots</a></li>
       <li><a href="#timecomp">Time comparisons</a></li>
       <li><a href="#timedist">Time distribution</a></li>
       <li><a href="#power">Power consumption</a></li>
@@ -76,6 +71,19 @@
     </div>
     <div class="bgmap" id="pathAnimation">
     <script src="/extras/gp10k-pathFollow.js"></script>
+    </div>
+
+    <!------------------------------------------------>
+    <a name="boxplot"></a>
+    <h2>Annual boxplots</h2>
+    <p>
+    Those boxes below are called <i>boxplots</i>. It's a neat way of representing whole distribution with just few values. Those boxes are bounded by bottom and top by 25<sup>th</sup> and 75<sup>th</sup> percentiles, respectively. This means that a 1/4 of the best results are above the box and similarly 1/4 of the worst are below. Whiskers, i.e. vertical lines on dashed leash, simply indicate minimum and maximum value. There's also this vertical line within the box. It shows the <i>median</i> value, i.e. the most central value, i.e. someone who is equally a winner and a loser. Often it's more meaningful to compare these instead of averages, because the average human geographical location is somewhere close to the hot face-melting lava, whereas median person will live longer than a second.
+    </p>
+    <p>
+    <script src="/extras/box.js"></script>
+    <script src="/extras/gp10k-boxplot.js"></script>
+
+    <div class="boxplot">
     </div>
 
     <!------------------------------------------------>
